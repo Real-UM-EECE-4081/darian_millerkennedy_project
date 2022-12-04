@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout, get_user
 from .models import Contacts
-from .forms import NewUserForm
+from .forms import NewUserForm, Contactsform
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.models import User
 # Create your views here.
 contacts = Contacts.objects.all()
 def Homepage(request):
@@ -48,3 +47,11 @@ def logout_request(request):
 	messages.info(request, "You have successfully logged out.") 
 	return redirect("Homepage")
 
+def contactadd(request):
+	if request.method == "POST":
+		form = Contactsform(request.POST)
+		if form.is_valid():
+			form.save()
+		messages.success(request,"You have successfully added the contact.")
+	form = Contactsform()
+	return render(request=request, template_name="contactadd.html", context={"form":form})
