@@ -1,0 +1,44 @@
+{% include "header.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+</head>
+<body>
+   {% if user.is_authenticated %}
+   <br>
+   <div class="container"> 
+    <div class="row">
+        <div class ='col-sm-4'>  <h3>WELCOME {{user.first_name|upper}}</h3> </div>
+        <div class ='col-sm-8'> 
+            <div class="card">
+                <div class="card-header">YOUR CONTACTS</div>
+                {%for p in contacts%}
+                <div class="card-body">NAME: {{p.name}}</div>
+                <div class="card-footer">NUMBER: {{p.number}}</div>
+                {%endfor%}
+              </div> <br>
+             
+        </div>
+    <br><br></div>  
+    <h2>HERE ARE THE CLOSEST VOLUNTEER SERVICES IN YOUR AREA</h2>
+    <iframe width="1000" height="500" style="border:0" loading="lazy" 
+            allowfullscreen src="https://www.google.com/maps/embed/v1/search?q=volunteer%20services&key=AIzaSyDcplqMFsdbKDLpNil2_-Sf5emR1umdBek">
+</iframe>
+<a href="/contactadd" class="btn btn-warning" role="button">Add a contact</a>
+</div>
+   {% else %}
+   <div class="container">
+    <center><div class="card h-100 border border-warning">
+        <div class="card-body">
+          <h1 class="card-title" style="">PLEASE SIGN UP FOR VOLUNTEER SERVICES</h1>
+            <a href="/signup" class="btn btn-warning" style="margin: auto;"> SIGN UP</a><br>
+            <a href="/signin" class="card-text text-muted" style="font-size:12px">If you already have account, Sign In</a>
+        </div></div></center>
+   </div>
+    {%endif%}
+    </body>
+</html>
